@@ -5,6 +5,7 @@ import Image from "next/image";
 import { Separator } from "@/components/ui/separator";
 import { useEffect, useState } from "react";
 import { CreateChallengeButton } from "@/components/classroom/createChallenge";
+import { useRouter } from "next/navigation";
 
 const challenges = [];
 
@@ -14,7 +15,25 @@ type Props = {
   };
 };
 
-export default function Home({ params }: Props) {
+export default function ClassRoomPage({ params }: Props) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const checkToken = async () => {
+      try {
+        const token = localStorage.getItem("Token");
+        if (!token) {
+          throw new Error("Token not found");
+        }
+      } catch (error) {
+        console.error("Error checking token:", error);
+        router.push("/login");
+      }
+    };
+
+    checkToken();
+  }, [router]);
+
   console.log(params.id);
   const [isChallenge, setIsChallenge] = useState<boolean>(true);
   const [isMember, setIsMember] = useState<boolean>(false);

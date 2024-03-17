@@ -12,10 +12,9 @@ import {
 } from "firebase/auth";
 import { auth } from "@/firebase/config";
 
-import { User } from "firebase/auth"; // Make sure to import the User type from Firebase
+import { User } from "firebase/auth";
 import { createUser } from "@/components/addUserOnDB/createUser";
 
-// Define the type for the context value
 interface AuthContextValue {
   user: User | null;
   emailSignIn: (email: string, password: string) => void;
@@ -24,7 +23,6 @@ interface AuthContextValue {
   logOut: () => void;
 }
 
-// Create the context with the default value
 const AuthContext = createContext<AuthContextValue>({
   user: null,
   emailSignIn: () => {},
